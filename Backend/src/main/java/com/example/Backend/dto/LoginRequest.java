@@ -1,4 +1,4 @@
-package com.example.Backend.security;
+package com.example.Backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class JwtAuthenticationResponse {
-  
-  private String token;
-
+@AllArgsConstructor
+public class LoginRequest {
+    private String username;
+    private String password;
 }
