@@ -33,7 +33,6 @@ public class UrlMapping {
 
     @DBRef
     List<ClickEvent>clickEvents;
-
-
+    
 
 }

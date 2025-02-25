@@ -13,11 +13,11 @@ import com.example.Backend.repository.UserRepository;
 import com.example.Backend.security.JwtAuthenticationResponse;
 import com.example.Backend.security.JwtUtils;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserService {
     
     @Autowired
@@ -41,6 +41,10 @@ public class UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
         String jwt = jwtUtils.generateToken(userDetails);
         return new JwtAuthenticationResponse(jwt);
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }
