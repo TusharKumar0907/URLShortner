@@ -2,6 +2,7 @@ package com.example.Backend.service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class UrlMappingService {
 
     @Autowired
     private final UrlMappingRepository urlMappingRepository;
+
 
     public UrlMapping createShortUrl(String originalUrl, User user) {
         
@@ -56,9 +58,12 @@ public class UrlMappingService {
             check = randomString(len);
         }
 
-
         return check;
-        
+
+    }
+
+    public List<UrlMapping> findUrls(User user) {
+        return urlMappingRepository.findByUser(user);
     }
     
 }

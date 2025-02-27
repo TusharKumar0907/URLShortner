@@ -1,7 +1,6 @@
 package com.example.Backend.models;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -30,9 +29,5 @@ public class UrlMapping {
 
     @DBRef
     private User user;
-
-    @DBRef
-    List<ClickEvent>clickEvents;
-    
 
 }
