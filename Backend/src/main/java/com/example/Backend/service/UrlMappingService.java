@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.Backend.models.ClickEvent;
 import com.example.Backend.models.UrlMapping;
 import com.example.Backend.models.User;
+import com.example.Backend.repository.ClickEventRepository;
 import com.example.Backend.repository.UrlMappingRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +22,8 @@ public class UrlMappingService {
 
     @Autowired
     private final UrlMappingRepository urlMappingRepository;
+    @Autowired
+    private final ClickEventRepository clickEventRepository;
 
 
     public UrlMapping createShortUrl(String originalUrl, User user) {
@@ -65,5 +69,20 @@ public class UrlMappingService {
     public List<UrlMapping> findUrls(User user) {
         return urlMappingRepository.findByUser(user);
     }
-    
+
+    public UrlMapping getOriginalUrl(String shortUrl) {
+        UrlMapping urlMapping = urlMappingRepository.findByShortUrl(shortUrl);
+        if (urlMapping != null) {
+            urlMapping.setClickCount(urlMapping.getClickCount() + 1);
+            urlMappingRepository.save(urlMapping);
+
+            // Record Click Event
+            ClickEvent clickEvent = new ClickEvent();
+            clickEvent.setClickDate(LocalDateTime.now());
+            clickEvent.setUrlMapping(urlMapping);
+            clickEventRepository.save(clickEvent);
+        }
+        return urlMapping;
+    }
+
 }

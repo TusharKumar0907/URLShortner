@@ -78,7 +78,5 @@ public class UrlMappingController {
         int totalClicks = clickEvents.size();
         return new ResponseEntity<>(totalClicks, HttpStatus.OK);
     }
-
-
     
 }
